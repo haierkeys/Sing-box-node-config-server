@@ -7,6 +7,22 @@ import urllib.parse
 envPassword = "password"
 envServerPort = 8000
 nodesName = []
+
+
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# 读取节点信息
+node_file = current_dir+'/node.json'
+if os.path.exists(node_file):
+    # 读取 JSON 文件内容
+    with open(node_file, 'r', encoding='utf-8') as file:
+        node_data = json.load(file)
+        for item in node_data:
+            nodesName.append(item['tag'])
+
+# 设置全部节点变量
+allNodes = json.dumps(node_data, ensure_ascii=False)[1:-1]
+
 def NodeNameFilter(param: str = ""):
     nameParams = param.split("|")  # 将输入的 name 按 '|' 分割成一个列表
 
@@ -31,8 +47,6 @@ class JSONRequestHandler(http.server.BaseHTTPRequestHandler):
         self.send_header('Content-type', 'application/json')
         self.end_headers()
 
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-
         parsed_url = urllib.parse.urlparse(self.path)
         query_params = urllib.parse.parse_qs(parsed_url.query)
         setType = query_params.get('type', [''])[0]
@@ -41,18 +55,6 @@ class JSONRequestHandler(http.server.BaseHTTPRequestHandler):
         if password != envPassword:
             self.wfile.write("Password Error".encode('utf-8'))
             return
-
-        # 读取节点信息
-        node_file = current_dir+'/node.json'
-        if os.path.exists(node_file):
-            # 读取 JSON 文件内容
-            with open(node_file, 'r', encoding='utf-8') as file:
-                node_data = json.load(file)
-                for item in node_data:
-                    nodesName.append(item['tag'])
-
-        # 设置全部节点变量
-        allNodes = json.dumps(node_data, ensure_ascii=False)[1:-1]
 
         # 读取规则模版
         template_file = 'template.json'

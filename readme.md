@@ -1,4 +1,4 @@
-# Sing-box Node Config Server Tools /
+# Sing-box Node Config Server Tools / 节点配置服务工具
 
 ----
 从节点文件读取 `节点信息` 并生成完整的 `sing-box 配置信息`

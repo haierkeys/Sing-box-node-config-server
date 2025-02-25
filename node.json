@@ -1,0 +1,14 @@
+[
+  { "type": "vless", "tag": "日本-vl", "server": "8.8.8.8", "server_port": 21003 },
+  { "type": "vmess", "tag": "日本-vm", "server": "8.8.8.8", "server_port": 21003 },
+  { "type": "hysteria2", "tag": "日本-h2", "server": "8.8.8.8", "server_port": 21003 },
+  { "type": "vless", "tag": "美国-vl", "server": "8.8.8.8", "server_port": 21003 },
+  { "type": "vmess", "tag": "美国-vm", "server": "8.8.8.8", "server_port": 21003 },
+  { "type": "hysteria2", "tag": "美国-h2", "server": "8.8.8.8", "server_port": 21003 },
+  { "type": "vless", "tag": "新加坡-vl", "server": "8.8.8.8", "server_port": 21003 },
+  { "type": "vmess", "tag": "新加坡-vm", "server": "8.8.8.8", "server_port": 21003 },
+  { "type": "hysteria2", "tag": "新加坡-h2", "server": "8.8.8.8", "server_port": 21003 },
+  { "type": "vless", "tag": "香港-vl", "server": "8.8.8.8", "server_port": 21003 },
+  { "type": "vmess", "tag": "香港-vm", "server": "8.8.8.8", "server_port": 21003 },
+  { "type": "hysteria2", "tag": "香港-h2", "server": "8.8.8.8", "server_port": 21003 }
+]

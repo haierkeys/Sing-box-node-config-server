@@ -30,7 +30,9 @@ python3 sev.py
 
 
 {{ allNodes }} 生成所有节点详细配置列表, 不含 json 的 []
+
 {{ NodeNameFilter() }} 生成所有节点名字列表, 含有[]
+
 {{ NodeNameFilter('日本') }} 生成 tag 为 日本的节点名字列表, 含有[]
 
 {% if setType == 'linux' %} "auto_redirect": true,{% else %} "auto_route": true, {% endif %} 用于多端返回不同配置

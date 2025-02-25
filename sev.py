@@ -7,15 +7,22 @@ import urllib.parse
 envPassword = "password"
 envServerPort = 8000
 nodesName = []
-def NodeNameFilter(name: str = ""):
-    list = []
-    for item in nodesName:
-        if name == "":
-            list.append(item)
-        elif name in item:
-            list.append(item)
+def NodeNameFilter(param: str = ""):
+    nameParams = param.split("|")  # 将输入的 name 按 '|' 分割成一个列表
+
+    filtered_list = []  # 创建一个空列表来保存符合条件的元素
+
+    # 如果 name 是空字符串，返回整个 nodesName 列表
+    if param == "":
+        filtered_list = nodesName
+    else:
+        # 遍历 nodesName 中的每个元素，如果该元素在 names 中出现，则添加到 filtered_list 中
+        for nodeName in nodesName:
+            for name in nameParams:
+                if name in nodeName:
+                    filtered_list.append(nodeName)
     # 自定义函数逻辑
-    return json.dumps(list, ensure_ascii=False)
+    return json.dumps(filtered_list, ensure_ascii=False)
 
 class JSONRequestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):

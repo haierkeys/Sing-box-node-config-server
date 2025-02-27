@@ -8,6 +8,7 @@
 
 ```bash
 pip install jinja2
+pip install watchdog
 ```
 
 ### 运行脚本

@@ -4,7 +4,7 @@
 PYTHON_SCRIPT="sev.py"  # 你的Python脚本文件名
 PYTHON_PATH="python3"  # Python解释器路径（可以用 which python3 检查）
 LOG_FILE="$SCRIPT_DIR/script.log" # 日志文件路径
-KEYWORD="sev.py"        # 用于查找进程的关键字
+KEYWORD="sb-config.py"        # 用于查找进程的关键字
 
 # 启动函数
 start() {

@@ -7,6 +7,7 @@ import socketserver
 import logging
 import time
 from watchdog.observers import Observer
+from watchdog.observers.polling import PollingObserver
 from watchdog.events import FileSystemEventHandler
 from config import envPassword, envServerPort, nodeFile, configTemplateFile  # 导入配置
 
@@ -21,6 +22,7 @@ logging.basicConfig(
 currentDir = os.path.dirname(os.path.abspath(__file__))
 nodeFilePath = os.path.join(currentDir, nodeFile)
 configTemplateFilePath = os.path.join(currentDir, configTemplateFile)
+excludedFilePath = os.path.join(currentDir, "server.log") # 替换成你想排除的文件路径
 
 # 全局变量
 nodesName = []
@@ -102,21 +104,28 @@ class JSONRequestHandler(http.server.BaseHTTPRequestHandler):
                 logging.warning(f"Client {self.client_address} disconnected during error response")
 
 class FileChangeHandler(FileSystemEventHandler):
+    global excludedFilePath
     """文件变化处理器"""
     def on_modified(self, event):
+
         if not event.is_directory:
+            #logging.info(event.src_path)
             filePath = event.src_path
+            if filePath == excludedFilePath:
+                return  # 如果是排除的文件，则直接返回，后续代码不再执行
             if filePath == nodeFilePath:
-                logging.info(f"Detected change in {filePath}, reloading...")
+                logging.info(filePath)
+                logging.info(f"Config node change in {filePath}, reloading...")
                 loadNodeData()
             elif filePath == configTemplateFilePath:
-                logging.info(f"Detected change in {filePath}, reloading...")
+                logging.info(filePath)
+                logging.info(f"Config main change in {filePath}, reloading...")
                 loadTemplate()
 
 def startFileWatcher():
     """启动文件监控"""
     eventHandler = FileChangeHandler()
-    observer = Observer()
+    observer = PollingObserver()
     observer.schedule(eventHandler, currentDir, recursive=False)
     observer.start()
     logging.info("File watcher started")
@@ -124,6 +133,7 @@ def startFileWatcher():
         while True:
             time.sleep(1)  # 保持线程运行
     except KeyboardInterrupt:
+        logging.info("File watcher stopped by user")
         observer.stop()
     observer.join()
 

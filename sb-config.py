@@ -60,6 +60,8 @@ def nodeNameFilter(param: str = ""):
     filteredList = nodesName if param == "" else [
         nodeName for nodeName in nodesName if any(name in nodeName for name in nameParams)
     ]
+    if len(filteredList) == 0:
+        return "[\"🚀 节点选择\"]"
     return json.dumps(filteredList, ensure_ascii=False)
 
 class JSONRequestHandler(http.server.BaseHTTPRequestHandler):

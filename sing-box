@@ -11,7 +11,7 @@ BIN_RUN="$BIN run -c $CONFIG_FILE"
 BIN_CHECK="$BIN check -c $TEMP_CONFIG"
 
 LOG_FILE="/root/singbox.log"
-CHECK_INTERVAL=600  # 30分钟（1800秒）
+CHECK_INTERVAL=600  # s
 
 random_string=$(openssl rand -hex 8)
 CONFIG_URL="https://sb.diybeta.com/?password=haierspi!!@1$&type=linux&random=${random_string}"
